@@ -1,56 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-    form {
-      width: 300px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #fff;
-    }
-    input[type="text"], input[type="password"], input[type="submit"] {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    input[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    input[type="submit"]:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
 <body>
+    <h2>Accedi</h2>
+    <form action="login.php" method="POST">
+        <label for="login-username">Nome utente:</label>
+        <input type="text" name="login-username" id="login-username" required><br>
 
-  <h2>Accedi</h2>
+        <label for="login-password">Password:</label>
+        <input type="password" name="login-password" id="login-password" required><br>
 
-  <!-- Modulo di Login -->
-  <form action="login.php" method="POST">
-    <label for="login-username">Nome Utente</label>
-    <input type="text" id="login-username" name="login-username" required><br>
-
-    <label for="login-password">Password</label>
-    <input type="password" id="login-password" name="login-password" required><br>
-
-    <input type="submit" value="Accedi">
-  </form>
-
+        <button type="submit">Accedi</button>
+    </form>
 </body>
 </html>
-

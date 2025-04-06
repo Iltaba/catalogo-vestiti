@@ -4,36 +4,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['login-username'];
     $password = $_POST['login-password'];
 
-    // Connetti al database (configura il database e usa il tuo codice di connessione)
-    $conn = new mysqli("localhost", "root", "", "nome_database");
-
-    if ($conn->connect_error) {
-        die("Connessione fallita: " . $conn->connect_error);
-    }
-
-    // Cerca l'utente nel database
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
-        // Verifica la password
-        if (password_verify($password, $user['password'])) {
-            // Logga l'utente (usa sessioni o cookie per tracciare l'utente)
-            session_start();
-            $_SESSION['user'] = $user['id'];
-            echo "Accesso avvenuto con successo!";
-        } else {
-            echo "Nome utente o password errati.";
+    // Cerca l'utente nel file
+    $file = fopen('users.txt', 'r');
+    $found = false;
+    while (($line = fgets($file)) !== false) {
+        list($stored_username, $stored_password) = explode(':', trim($line));
+        if ($username === $stored_username && $password === $stored_password) {
+            $found = true;
+            break;
         }
-    } else {
-        echo "Nome utente non trovato.";
     }
+    fclose($file);
 
-    $stmt->close();
-    $conn->close();
+    if ($found) {
+        echo "Login riuscito!";
+        // Qui potresti iniziare una sessione per l'utente
+        // session_start();
+        // $_SESSION['username'] = $username;
+    } else {
+        echo "Nome utente o password errati!";
+    }
 }
 ?>
